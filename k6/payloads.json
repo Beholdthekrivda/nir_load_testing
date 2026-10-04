@@ -1,0 +1,6 @@
+[
+    { "type": "cpu", "cpu_n": 25, "label": "fast" },
+    { "type": "cpu", "cpu_n": 30, "label": "medium" },
+    { "type": "cpu", "cpu_n": 32, "label": "slow" },
+    { "type": "cpu", "cpu_n": 28, "label": "medium" }
+]
