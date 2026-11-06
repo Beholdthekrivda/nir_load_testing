@@ -3,10 +3,8 @@ set -e
 
 cleanup() {
     set +e
-	
-    # if [ docker stop manual_worker ]; then
-    #   docker rm $(docker ps -a | grep manual_worker | awk '{print $1}')	
-    # fi
+    
+    docker rm -f manual_worker >/dev/null 2>&1
 
     docker-compose down
 
@@ -95,17 +93,17 @@ case "$1" in
 
 	declare -a cpus
 	declare -a rams
-	cpus=("1" "0.5" "0.25" "0.125")
+	cpus=("2" "1" "0.5" "0.25" "0.125")
 	ram="512"
 	
 	for cpu in "${cpus[@]}"; do
            echo "Запуск теста: cpu = $cpu, ram = ${ram}m"
 	   scale_worker_test "$cpu" "$ram"
+
 	   echo "Запуск k6"
 	   docker-compose up --build --abort-on-container-exit k6
 
-	   docker stop manual_worker
-	   docker rm $(docker ps -a | grep manual_worker | awk '{print $1}')		
+	   docker rm -f manual_worker >/dev/null 2>&1	
 	done
 
 	echo "Все тесты успешно пройдены"
@@ -122,7 +120,7 @@ case "$1" in
 	    workers=$3
         fi
 
-        echo "Starting system with 2 partitions and 2 workers..."
+        echo "Starting system with $partitions partitions and $workers workers..."
         
         docker-compose down -v
        

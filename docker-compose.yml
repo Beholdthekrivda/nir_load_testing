@@ -12,15 +12,15 @@ services:
     # environment:
       # K6_KAFKA_BROKERS: kafka:9092
  
-  #prometheus:
-  # image: dhi.io/prometheus:3
-  # container_name: prometheus
-  # ports:
-  #   - 9090:9090
-  # command:
-  #   - --config.file=/etc/prometheus/prometheus.yml
-  # volumes:
-  #   - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+  prometheus:
+    image: dhi.io/prometheus:3
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
 
  # cadvisor:
  # image: gcr.io/cadvisor/cadvisor:latest
